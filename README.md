@@ -19,8 +19,6 @@ This application was developed using TDD(Test Driven Development) using SOLID pr
 
 #### Install dependencies
 
-##### run command
-
 \$ 'yarn' or 'npm install'
 
 #### Start Development Application
@@ -30,6 +28,10 @@ This application was developed using TDD(Test Driven Development) using SOLID pr
 #### Build Application
 
 \$ yarn build
+
+#### Run Tests
+
+\$ yarn test
 
 #### Routes
 
