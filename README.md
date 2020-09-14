@@ -13,9 +13,9 @@ This application was developed using TDD(Test Driven Development) using SOLID pr
 - Jest for unity tests
 - MongoDB
 - Mongoose
-- Tsyrige for dependency injection
+- Tsyringe for dependency injection
 - Eslint
-- prettier
+- Prettier
 
 #### Install dependencies
 
