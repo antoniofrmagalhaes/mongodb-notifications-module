@@ -9,7 +9,7 @@ import { IQuery } from '../NotificationsRepository';
 class NotificationsTestRepository {
   private notificationsRepository: INotificationDocument[] = [];
 
-  public async find(query: IQuery): Promise<INotificationDocument[]> {
+  public async find(query: IQuery): Promise<object> {
     return this.notificationsRepository;
   }
 
