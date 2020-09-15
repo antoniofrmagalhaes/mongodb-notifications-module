@@ -9,22 +9,24 @@ export interface IQuery {
 }
 
 class NotificationsRepository {
-  public async find(query: IQuery): Promise<INotificationDocument[]> {
+  public async find(query: IQuery): Promise<object> {
     const { page, unread } = query;
-    if (!!unread) {
+    if (Boolean(unread)) {
+      const totalRecords = await Notification.count({ read: false });
       const unreadOnly = await Notification.find()
         .where('read')
         .equals(false)
         .limit(7)
         .skip((Number(page) - 1) * 7)
         .sort('-createdAt');
-      return unreadOnly;
+      return { totalRecords: totalRecords, result: unreadOnly };
     }
+    const totalRecords = await Notification.countDocuments();
     const notifications = await Notification.find()
       .limit(7)
       .skip((Number(page) - 1) * 7)
       .sort('-createdAt');
-    return notifications;
+    return { totalRecords: totalRecords, result: notifications };
   }
 
   public async findById(

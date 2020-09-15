@@ -3,7 +3,7 @@ import ICreateNotificationDTO from '../DTO/ICreateNotificationDTO';
 import { IQuery } from '../infra/mongoose/repositories/NotificationsRepository';
 
 export default interface INotificationsRepository {
-  find(query: IQuery): Promise<INotificationDocument[]>;
+  find(query: IQuery): Promise<object>;
   findById(notification_id: string): Promise<INotificationDocument>;
   create(
     notificationData: ICreateNotificationDTO,
