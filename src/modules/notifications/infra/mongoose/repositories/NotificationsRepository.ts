@@ -11,6 +11,7 @@ export interface IQuery {
 class NotificationsRepository {
   public async find(query: IQuery): Promise<object> {
     const { page, unread } = query;
+
     if (Boolean(unread)) {
       const totalRecords = await Notification.count({ read: false });
       const unreadOnly = await Notification.find()
@@ -21,6 +22,7 @@ class NotificationsRepository {
         .sort('-createdAt');
       return { totalRecords: totalRecords, result: unreadOnly };
     }
+
     const totalRecords = await Notification.countDocuments();
     const notifications = await Notification.find()
       .limit(7)
