@@ -11,24 +11,31 @@ export interface IQuery {
 class NotificationsRepository {
   public async find(query: IQuery): Promise<object> {
     const { page, unread } = query;
-
+    const totalUnread = await Notification.count({ read: false });
+    const totalRecords = await Notification.countDocuments();
     if (Boolean(unread)) {
-      const totalRecords = await Notification.count({ read: false });
       const unreadOnly = await Notification.find()
         .where('read')
         .equals(false)
-        .limit(7)
-        .skip((Number(page) - 1) * 7)
+        .limit(10)
+        .skip((Number(page) - 1) * 10)
         .sort('-createdAt');
-      return { totalRecords: totalRecords, result: unreadOnly };
+      return {
+        total_records: totalRecords,
+        total_unread: totalUnread,
+        result: unreadOnly,
+      };
     }
 
-    const totalRecords = await Notification.countDocuments();
     const notifications = await Notification.find()
-      .limit(7)
-      .skip((Number(page) - 1) * 7)
+      .limit(10)
+      .skip((Number(page) - 1) * 10)
       .sort('-createdAt');
-    return { totalRecords: totalRecords, result: notifications };
+    return {
+      total_records: totalRecords,
+      total_unread: totalUnread,
+      result: notifications,
+    };
   }
 
   public async findById(
